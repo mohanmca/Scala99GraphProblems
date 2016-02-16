@@ -25,13 +25,20 @@ package graph {
       case _ => false
     }
 
+    override def toString = {
+      val strNodes = nodes.map { case (k, v) => k }.toList.mkString(",")
+      val strEdges = edges.mkString(", ")
+    
+      s"[ N - ${strNodes}, E - ${strEdges} ]"
+    }
+
     def addNode(value : T) = {
       val n = new Node(value)
       nodes = Map(value -> n) ++ nodes
       n
     }
 
-    val toTermForm : (List[T], List[(T, T, U)]) = {
+    def toTermForm : (List[T], List[(T, T, U)]) = {
       val _nodes = nodes.map { case (k, v) => k }.toList
       val _edges = edges.map { case Edge(Node(n1), Node(n2), v) => (n1, n2, v) }.toList
       (_nodes, _edges)
