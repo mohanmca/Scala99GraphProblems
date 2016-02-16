@@ -28,7 +28,7 @@ package graph {
     override def toString = {
       val strNodes = nodes.map { case (k, v) => k }.toList.mkString(",")
       val strEdges = edges.mkString(", ")
-    
+
       s"[ N - ${strNodes}, E - ${strEdges} ]"
     }
 
@@ -42,6 +42,15 @@ package graph {
       val _nodes = nodes.map { case (k, v) => k }.toList
       val _edges = edges.map { case Edge(Node(n1), Node(n2), v) => (n1, n2, v) }.toList
       (_nodes, _edges)
+    }
+
+    def findTargetEdges(n : Node) : List[(T, U)] = {
+      edges.filter { edge => n == edge.n1 }.map { edge => (edge.n2.value, edge.value) }.toList
+    }
+
+    def toAdjacentForm : List[(T, List[(T, U)])] = {
+      //nodes.values.map { node => (node.value, findTargetEdges(node)) }.filter(connected => connected._2.length > 0).toList
+      nodes.values.map { node => (node.value, findTargetEdges(node)) }.toList
     }
 
   }
