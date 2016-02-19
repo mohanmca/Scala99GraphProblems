@@ -1,4 +1,4 @@
-package org.s99.one_to_ten
+package org.s99.oneToTen
 
 object oneToTen {
   def last[T](list : List[T]) : T = list match {

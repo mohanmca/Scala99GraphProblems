@@ -1,4 +1,4 @@
-package org.s99.one_to_ten
+package org.s99.oneToTen
 
 object elevenToTwenty {
   def combinations_[T](n : Int, list : List[T]) : List[List[T]] = n match {

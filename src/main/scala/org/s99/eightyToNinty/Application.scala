@@ -1,4 +1,4 @@
-package org.s99
+package org.s99.eightyToNinty
 
 object Application extends App {
   var a = 45
