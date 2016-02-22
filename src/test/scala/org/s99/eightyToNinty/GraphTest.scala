@@ -15,7 +15,6 @@ class GraphTest extends FlatSpec {
     val nodes = List("a", "b")
     val edges = ("a", "b", ()) :: Nil
     val singleEdgeGraphInTermForm = Graph.termLabel(nodes, edges).toTermForm
-    //TODO: order of node matters now, handle it
     val expectedGraphInTermForm : (List[String], List[(String, String, Unit)]) = (List("b", "a"), List(("a", "b", ())))
     assert(singleEdgeGraphInTermForm == expectedGraphInTermForm)
   }
@@ -24,7 +23,6 @@ class GraphTest extends FlatSpec {
     val nodes = List("a", "b")
     val edges = ("a", "b", ()) :: Nil
     val graphInTermForm = Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
-    //TODO: order of node matters now, handle it
     val expectedTermForm : (List[String], List[(String, String, Unit)]) = (List("d", "k", "h", "c", "f", "g", "b"), List(("h", "g", ()), ("k", "f", ()), ("f", "b", ()), ("g", "h", ()), ("f", "c", ()), ("b", "c", ())))
     assert(graphInTermForm._1.toSet.equals(expectedTermForm._1.toSet))
     assert(graphInTermForm._2 == expectedTermForm._2)

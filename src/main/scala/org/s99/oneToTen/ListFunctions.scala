@@ -1,6 +1,6 @@
 package org.s99.oneToTen
 
-object oneToTen {
+object ListFunctions {
   def last[T](list : List[T]) : T = list match {
     case head :: Nil => head
     case head :: next => last(next)
@@ -37,6 +37,13 @@ object oneToTen {
     val predicate : T => Boolean = x => x == list.head
     collectWhile(list, predicate)
   }
+
+  def combinations_[T](n : Int, list : List[T]) : List[List[T]] = n match {
+    case 1 => list.map(x => List(x))
+    case x if x > 1 => list.zipWithIndex.flatMap { case (e, i) => combinations_(x - 1, list.filter(_ != e)).map { sublist => e :: sublist } }
+  }
+
+  def combinations[T](n : Int, list : List[T])(implicit ord : Ordering[T]) : List[List[T]] = combinations_(n, list).map { _.sorted(ord) }.distinct
 
   def pack[T](list : List[T]) : (List[List[T]]) = depleteHeadDups(list) match {
     case (f, Nil) => List(f)

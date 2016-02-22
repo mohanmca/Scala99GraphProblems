@@ -18,7 +18,6 @@ abstract class GraphBase[T, U] {
   def edgeTarget(e : Edge, n : Node) : Option[Node]
 
   override def equals(o : Any) = o match {
-    //Todo: Write isSame(List,List) function, and use it below
     case g : GraphBase[_, _] => (nodes.keys.toList.diff(g.nodes.keys.toList) == Nil && edges.map(_.toTuple).diff(g.edges.map(_.toTuple)) == Nil)
     case _ => false
   }
