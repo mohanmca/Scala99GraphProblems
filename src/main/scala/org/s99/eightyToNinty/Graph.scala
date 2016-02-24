@@ -87,6 +87,16 @@ class Digraph[T, U] extends GraphBase[T, U] {
     nodes(source).adj = e :: nodes(source).adj
   }
 
+  def findRechable(source : T) : List[List[T]] = {
+    val reachableSet = edges.filter { e => e.n1.value == source }.map { e => e.n2.value }.toList
+    val furtherRechable = reachableSet.flatMap { x => findRechable(x) }.filter { x => !x.isEmpty }
+    reachableSet :: furtherRechable
+  }
+
+  def findPaths(source : T, dest : T) : List[List[T]] = {
+    findRechable(source).filter { _.contains(dest) }.map { source :: _ }
+  }
+
 }
 
 abstract class GraphObjBase {
@@ -106,9 +116,9 @@ object Graph extends GraphObjBase {
   val arcPattern = "([a-z]+)>?([a-z]?)/?([0-9]?),?".r
 
   def fromString(string : String) : Graph[String, Unit] = {
-    val strGraph = string.replace("[", "").replace("]", "").split(", ")     
+    val strGraph = string.replace("[", "").replace("]", "").split(", ")
     //[b-c, f-c, g-h, d, f-b, k-f, h-g]
-    val nodes = strGraph.flatMap { x => x.split("-") }.foldLeft(Nil: List[String])((list, elem) => if (list.contains(elem)) list else elem :: list).reverse
+    val nodes = strGraph.flatMap { x => x.split("-") }.foldLeft(Nil : List[String])((list, elem) => if (list.contains(elem)) list else elem :: list).reverse
     println(nodes.mkString(", "))
     val edges = strGraph.filter { _.contains("-") }.map { edge => edge.split("-") }.map { nodes => (nodes(0), nodes(1), ()) }.toList
     termLabel(nodes, edges)

@@ -2,7 +2,6 @@ package org.s99.eightyToNinty
 
 import org.scalatest.FlatSpec
 
-
 class GraphTest extends FlatSpec {
   "Graph with edges" should "have at least 1 edge" in {
     val nodes = List("a", "b")
@@ -32,6 +31,13 @@ class GraphTest extends FlatSpec {
     val node = "[p>q/9, m>q/7, k, p>m/5]"
     val digraph = Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]")
     assert(digraph.toTermForm == (List("k", "m", "q", "p"), List(("p", "m", 5), ("m", "q", 7), ("p", "q", 9))))
+  }
+
+  "Digraph" should "have path from p to q" in {
+    val node = "[p>q/9, m>q/7, k, p>m/5]"
+    val path = Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
+    assert(path == List(List("p", "m", "q"), List("p", "q")))
+    assert(Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k") == List())
   }
 
 }
