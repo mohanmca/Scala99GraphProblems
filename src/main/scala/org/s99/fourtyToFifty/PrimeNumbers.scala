@@ -1,6 +1,7 @@
 package org.s99.fourtyToFifty
 
-import org.s99.oneToTen.ListFunctions
+import org.s99.oneToTwenty.ListFunctions;
+
 import scala.collection.immutable.Seq
 
 object PrimeNumbers {

@@ -1,4 +1,4 @@
-package org.s99.oneToTen
+package org.s99.oneToTwenty
 
 import org.scalatest.FlatSpec
 
