@@ -25,14 +25,16 @@ object PrimeNumbers {
   }
 
   def printGoldbachList(n : Seq[Int]) = {
-    val goldbachs = n.filter { _ % 2 == 0 }.flatMap { goldbach(_) }
+    val goldbachs = n.filter { _ % 2 == 0 }.flatMap { goldbach(_) }.toList
     println(goldbachs.mkString)
+    goldbachs
   }
 
   def printGoldbachListLimited(n : Seq[Int], min : Int) = {
     val goldbachs = n.filter { _ % 2 == 0 }.flatMap { goldbach(_) }
     val goldbachsConstraint = goldbachs.filter { _.forall { e => e > min } }
     println(goldbachsConstraint.mkString)
+    goldbachsConstraint
   }
 
 }

@@ -50,4 +50,18 @@ object ListFunctions {
     case (f, d) => f :: pack(d)
   }
 
+  def encode[T](list : List[T]) : List[(Int, T)] = pack(list).map(xs => (xs.length, xs.head)).toList
+
+  def encodeModified[T](list : List[T]) : List[Any] = encode(list) map {
+    _ match {
+      case a @ (n, x) if n > 1 => a
+      case a @ (n, x) if n == 1 => x
+    }
+  }
+
+  def insertAt[T](elem : T, n : Int, list : List[T]) : List[T] = n match {
+    case 0 => elem :: list
+    case x if x > 0 => list.head :: insertAt(elem, x - 1, list.tail)
+  }
+
 }
